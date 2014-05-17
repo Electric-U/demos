@@ -81,5 +81,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- minified D3 Library -->
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	;(function(){
+		$.getJSON('http://baconipsum.com/api/?callback=?',{"type":"meat-and-filler","paras":"5"}, 
+		  function(response) {
+			  	if(response)
+				response.forEach(function(t){ $('#analyze').append($('<p>'+t+'</p>'));});
+			  	runAnalysis();
+		});
+	})();
+</script>
 </body>
 </html>
