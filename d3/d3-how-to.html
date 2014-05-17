@@ -63,20 +63,20 @@
 </section>
 <footer>
    <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="row text-center">
-                        <div class="col-xs-10 col-xs-offset-1">
-                            <p><small>Credits: <a href="http://d3js.org">D3js.org</a>, 
-								<a href="http://jquery.com">jQuery</a>, &amp; 
-								<a href="http://getbootstrap.com">Boostrap</a></small> 
-							</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="row text-center">
+					<div class="col-xs-10 col-xs-offset-1">
+						<p><small>credits: <a href="http://d3js.org">D3js</a>, 
+							<a href="http://baconipsum.com">Bacon Ipsum</a>, 
+							<a href="http://jquery.com">jQuery</a>, &amp; 
+							<a href="http://getbootstrap.com">Bootstrap</a></small> 
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -85,8 +85,7 @@
 <!-- Minified D3 Library -->
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>	
 <script type="text/javascript">
-	/* 	This self-executing function will fill our section to analyze
-		with some random bacon ipsum text. */
+	
 	;(function(){
 		$.getJSON('http://baconipsum.com/api/?callback=?',{"type":"meat-and-filler","paras":"5"}, 
 		  function(response) {
@@ -95,28 +94,25 @@
 			  	runAnalysis();
 		});
 	})();
-	
+
 	var goodWriting = (function(options,d3,$) {
+		if(!($) || !(d3)) { console.log("jQuery or D3 is missing!"); return;}
 		var self = this;
 		options = (options)?options:{};
-		if(!($) || !(d3)) return;
-
 		var settings = {
 			  "target": (options.target)?options.target:	"#analyze"
-			, "widget": (options.widget)?options.widget:	".icon-wrapper"
-		};
+		}, target = settings.target;
 
-		var target = settings.target;
-		var widget = settings.widget;
-
-		var analyze = (function() {
+		var analysis = (function() {
 			var paragraph = function(p) { 
-				var parsed = $(p).text().split(/[\.\?\!]/)
-					.map(function(d){ return sentence(d); });
-				return {"sentence":parsed, "sentence_count":parsed.length};
-			}, sentence = function(s){
-				return {"word_count": s.split(" ").length};
-			}, rules = (function(){
+				var parsed = $(p).text().split(/[\.\?\!]/).map(
+					function(d) { 
+						return sentence(d); 
+					});
+				return { "sentence":parsed, "sentence_count":parsed.length};
+			}, sentence = function(s) {
+				return { "word_count": s.split(" ").length };
+			}, rules = (function() {
 				var goodSentence = function(s) {
 					return (s.word_count >= 5 && s.word_count <=12);
 				}, goodParagraph = function(p) {
@@ -131,33 +127,38 @@
 				return {"apply": applyRules,"sentence":goodSentence};
 			})();
 
-			var fn = {
+			return {
 				  "analyzeParagraph": function(p) { return rules.apply(p) <= 3;}
 				, "analyzeSentence" : function(s) { return rules.sentence(s); }
 				, "parseParagraph"  : function(p) { return paragraph(p); }
 			};
-			return fn;
 		})();
+		
 		var pass = function(){
-			return $.makeArray($(target).find('p')).map(function(d){ return analyze.analyzeParagraph(d);}).indexOf(false) + 1;
+			return $.makeArray($(target).find('p')).map(function(d){ return analysis.analyzeParagraph(d);}).indexOf(false) + 1;
 		};
+		
 		return {
-			"analyze": analyze,
-			"pass": pass };
+			  "analysis": analysis
+			, "pass": pass };
 	})({},d3,jQuery);
-	
+
 	var icon = d3
 			.select('.icon-wrapper')
 			.selectAll('span').data([]);
 	
 	function applyAnalysis(analysis){
-		var action = icon.data(analysis);
-			action.enter()
-					.append('span')
-					.classed({'glyphicon':true, 'glyphicon-thumbs-up': function(d){ return d;}, 'glyphicon-thumbs-down': function(d){return !d;} });
-		action
-			.exit()
-			.remove();
+		var classDefinition = {
+			  "glyphicon":true
+			, "glyphicon-thumbs-up": function(d){ return d;}
+			, "glyphicon-thumbs-down": function(d){return !d;} 
+		}, action = icon.data(analysis);
+		
+		action.enter()
+			  .append('span')
+			  .classed(classDefinition);
+		action.exit()
+			  .remove();
 	}
 	
 	function runAnalysis() {
