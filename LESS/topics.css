@@ -1,0 +1,88 @@
+/* CSS crunched with Crunch - http://crunchapp.net/ */
+.wrap {
+  max-width: 400px;
+}
+@media (min-width: 650px) {
+  .wrap {
+    max-width: 640px;
+  }
+}
+.wrap .card {
+  float: left;
+  padding: 2px 2px;
+  margin: 2px 2px;
+  height: 130px;
+  width: 130px;
+}
+.wrap .card[class*=topic1] {
+  color: #ffffff;
+  background-color: #0000ff;
+}
+.wrap .card[class*=topic1] {
+  color: #ffffff;
+  background-color: #0000ff;
+}
+.wrap .card[class*=topic1]:hover {
+  color: #0000ff;
+  background-color: transparent;
+}
+.wrap .card[class*=topic1] span.after[class*=topic1]:after {
+  content: "+";
+  margin: 0 1px;
+}
+.wrap .card[class*=topic1] span.after[class*=topic1]:after:hover {
+  color: #ffffff;
+  background-color: #0000ff;
+}
+.wrap .card[class*=topic1].rev {
+  color: #0000ff;
+  background-color: transparent;
+}
+.wrap .card[class*=topic1].rev:hover {
+  color: #ffffff;
+  background-color: #0000ff;
+}
+.wrap .card[class*=topic1].rev span.after[class*=topic1]:after {
+  color: #ffffff;
+  background-color: #0000ff;
+}
+.wrap .card[class*=topic1].rev span.after[class*=topic1]:after:hover {
+  color: #0000ff;
+  background-color: transparent;
+}
+.wrap .card[class*=topic2] {
+  color: #cccccc;
+  background-color: #000000;
+}
+.wrap .card[class*=topic2] {
+  color: #cccccc;
+  background-color: #000000;
+}
+.wrap .card[class*=topic2]:hover {
+  color: #000000;
+  background-color: transparent;
+}
+.wrap .card[class*=topic2] span.after[class*=topic2]:after {
+  content: "x";
+  margin: 0 1px;
+}
+.wrap .card[class*=topic2] span.after[class*=topic2]:after:hover {
+  color: #cccccc;
+  background-color: #000000;
+}
+.wrap .card[class*=topic2].rev {
+  color: #000000;
+  background-color: transparent;
+}
+.wrap .card[class*=topic2].rev:hover {
+  color: #cccccc;
+  background-color: #000000;
+}
+.wrap .card[class*=topic2].rev span.after[class*=topic2]:after {
+  color: #cccccc;
+  background-color: #000000;
+}
+.wrap .card[class*=topic2].rev span.after[class*=topic2]:after:hover {
+  color: #000000;
+  background-color: transparent;
+}

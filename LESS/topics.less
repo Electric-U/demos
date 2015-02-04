@@ -1,0 +1,64 @@
+@space: 2px;
+@topic1: dotted;
+@topic2: solid;
+.marker(@color;@text;@space;@icon;@type) {
+    .standard() {
+        color: @text;
+        background-color: @color;
+    }
+    .alt() {
+        color: @color;
+        background-color: transparent;
+    }
+    & {
+        .standard;
+        &:hover{.alt;}
+        span.after[class*=@{type}]:after {
+            &:hover {.standard;}
+            content: @icon;
+            margin:0 (@space/2);
+        }
+    }
+    &.rev {
+        .alt;
+        &:hover{.standard;}
+        span.after[class*=@{type}]:after {
+            .standard;
+            &:hover {.alt;}
+        }
+    }
+}
+.card(@color;@text;@space;@icon;@type) {
+    & .card[class*=@{type}]{    
+        color: @text;
+        background-color: @color;
+        .marker(@color,@text,@space,@icon,@type);
+    }
+}
+.tablet() {
+    & {    
+        @media (min-width: 650px) {
+            max-width: 640px;
+        }
+    }
+}
+.wrap {
+    max-width: 400px;
+    .tablet;
+    .card {
+            float: left;
+            padding: (@space*1) (@space*1);
+            margin: @space @space;
+            height: (@space*65);
+            width: (@space*65);            
+    }    
+    &{
+        @color: blue; // These variables only used for clarity //
+        @text: white;
+        @icon: "+";
+        @type: topic1;        
+        .card(@color,@text,@space,@icon,@type);
+        .card(black,#ccc,@space,"x",topic2);
+    }
+}
+

@@ -49,8 +49,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-						<div class="row text-center">
-							<div class="col-xs-12 col-md-6 col-md-offset-3" id="analyze">
+						<div class="row">
+							<div class="col-xs-12 col-md-6 col-md-offset-3 text-left" id="analyze">
 								<!-- Lets grab some lorem ipsum text and put it in here... -->
 								
 							</div>
@@ -138,9 +138,7 @@
 			return $.makeArray($(target).find('p')).map(function(d){ return analysis.analyzeParagraph(d);}).indexOf(false) + 1;
 		};
 		
-		return {
-			  "analysis": analysis
-			, "pass": pass };
+		return { "analysis": analysis, "pass": pass };
 	})({},d3,jQuery);
 
 	var icon = d3
